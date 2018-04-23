@@ -90,7 +90,7 @@ public final class DiskLruCache implements Closeable {
     private final File journalFileBackup;
     private final int appVersion;
     private long maxSize;
-    private final int valueCount;//每一个entry中的图片数量，支持一对多来进行缓存
+    private final int valueCount;//每一个entry中的图片数量，支持一对多来进行缓存，在构造函数中初始化
     private long size = 0;
     private Writer journalWriter;
     private final LinkedHashMap<String, Entry> lruEntries =
@@ -107,7 +107,7 @@ public final class DiskLruCache implements Closeable {
     /**
      * This cache uses a single background thread to evict(驱除，赶出) entries.
      */
-    final ThreadPoolExecutor executorService =
+    private final ThreadPoolExecutor executorService =
             new ThreadPoolExecutor(0, 1, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
     private final Callable<Void> cleanupCallable = new Callable<Void>() {
         public Void call() throws Exception {
@@ -533,22 +533,22 @@ public final class DiskLruCache implements Closeable {
         checkNotClosed();
         validateKey(key);
         Entry entry = lruEntries.get(key);
-        if (entry == null || entry.currentEditor != null) {
+        if (entry == null || entry.currentEditor != null) {//当前要移除的Entry存在 并且 !Entry如果正在被被编辑
             return false;
         }
 
-        for (int i = 0; i < valueCount; i++) {
+        for (int i = 0; i < valueCount; i++) {//每一个entry都最多对应valueCount个item
             File file = entry.getCleanFile(i);
             if (file.exists() && !file.delete()) {
                 throw new IOException("failed to delete " + file);
             }
-            size -= entry.lengths[i];
+            size -= entry.lengths[i];//循环删除一个key对应的Entry中的所有value，并更新缓存总大小
             entry.lengths[i] = 0;
         }
 
-        redundantOpCount++;
+        redundantOpCount++;//操作数加一
         journalWriter.append(REMOVE + ' ' + key + '\n');
-        lruEntries.remove(key);
+        lruEntries.remove(key);//到最后才移除键值对
 
         if (journalRebuildRequired()) {
             executorService.submit(cleanupCallable);
@@ -632,7 +632,7 @@ public final class DiskLruCache implements Closeable {
     /**
      * A snapshot of the values for an entry.
      */
-    public final class Snapshot implements Closeable {
+    public final class Snapshot implements Closeable {//实现Closeable来释放流资源
         private final String key;
         private final long sequenceNumber;
         private final InputStream[] ins;
@@ -705,8 +705,10 @@ public final class DiskLruCache implements Closeable {
         }
 
         /**
-         * Returns an unbuffered input stream to read the last committed value,
+         * Returns an unbuffered(无缓冲的) input stream to read the last committed value,
          * or null if no value has been committed.
+         * <p>
+         * 获取最近修改文件的一个InputStream，如果enrty中没有值则返回空
          */
         public InputStream newInputStream(int index) throws IOException {
             synchronized (DiskLruCache.this) {
@@ -717,7 +719,7 @@ public final class DiskLruCache implements Closeable {
                     return null;
                 }
                 try {
-                    return new FileInputStream(entry.getCleanFile(index));
+                    return new FileInputStream(entry.getCleanFile(index));//根据
                 } catch (FileNotFoundException e) {
                     return null;
                 }
@@ -727,6 +729,7 @@ public final class DiskLruCache implements Closeable {
         /**
          * Returns the last committed value as a string, or null if no value
          * has been committed.
+         * // TODO: 2018/4/23 为什么转化为String
          */
         public String getString(int index) throws IOException {
             InputStream in = newInputStream(index);
@@ -874,7 +877,7 @@ public final class DiskLruCache implements Closeable {
         private boolean readable;
 
         /**
-         * The ongoing edit or null if this entry is not being edited.
+         * The ongoing edit or null if this entry is not being edited.(如果当前该entry正在被编辑，则currentEditor不为空，否则为空)
          */
         private Editor currentEditor;
 
@@ -883,9 +886,9 @@ public final class DiskLruCache implements Closeable {
          */
         private long sequenceNumber;
 
-        private Entry(String key) {
+        private Entry(String key) {//一个key对应多个value
             this.key = key;
-            this.lengths = new long[valueCount];
+            this.lengths = new long[valueCount];//valueCount在构造函数中初始化
         }
 
         public String getLengths() throws IOException {
@@ -918,7 +921,7 @@ public final class DiskLruCache implements Closeable {
         }
 
         public File getCleanFile(int i) {
-            return new File(directory, key + "." + i);
+            return new File(directory, key + "." + i);//创建将要保存的文件，为其命名为key + .序列号
         }
 
         public File getDirtyFile(int i) {
