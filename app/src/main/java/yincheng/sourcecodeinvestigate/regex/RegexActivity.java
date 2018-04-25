@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import yincheng.interviewhelper.R;
+import yincheng.sourcecodeinvestigate.R;
+
 
 /**
  * Created by yincheng on 2018/4/19.
