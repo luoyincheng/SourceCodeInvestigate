@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import yincheng.sourcecodeinvestigate.R;
+import yincheng.sourcecodeinvestigate.view.InflateTestFramelayout;
 import yincheng.sourcecodeinvestigate.view.MainRowView;
 import yincheng.sourcecodeinvestigate.view.ReboundFramelayout;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //// TODO: 2018/4/27 为什么static
     static {
         itemHolders.add(new ItemHolder(ReboundFramelayout.class, "我的世界", "开始下雪"));
-        itemHolders.add(new ItemHolder(ReboundFramelayout.class, "我的世界", "开始下雪"));
+        itemHolders.add(new ItemHolder(InflateTestFramelayout.class, "LayoutInflater.from(Context)", "inflate()方法中三个参数的意义"));
         itemHolders.add(new ItemHolder(ReboundFramelayout.class, "我的世界", "开始下雪"));
     }
 
