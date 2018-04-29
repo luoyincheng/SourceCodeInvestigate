@@ -3,12 +3,16 @@ package yincheng.sourcecodeinvestigate.view.widget.smartisanswitchbutton;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.graphics.RectF;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.ViewDragHelper;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import yincheng.sourcecodeinvestigate.R;
@@ -24,6 +28,10 @@ public class smartisanswitchbutton extends ViewGroup {
    private int borderWidth = 50;
    private int circleRadius;
    private ViewDragHelper mDragHelper;
+   private GestureDetectorCompat moveDetector;
+   private int mTouchSlop = 5;
+   private Point downPoint = new Point();
+
 
    public smartisanswitchbutton(Context context) {
       this(context, null);
@@ -39,8 +47,15 @@ public class smartisanswitchbutton extends ViewGroup {
       borderView = new SwitchBorderView(context);
       addView(borderView);
       addView(innerView);
+      // TODO: 2018/4/29 参数意义
       mDragHelper = ViewDragHelper.create(this, 10f, new DragHelperCallback());
+      ViewConfiguration configuration = ViewConfiguration.get(getContext());
+      mTouchSlop = configuration.getScaledTouchSlop();
+      moveDetector = new GestureDetectorCompat(context,
+            new MoveDetector());
+      moveDetector.setIsLongpressEnabled(false);
    }
+
 
    @Override
    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -59,13 +74,126 @@ public class smartisanswitchbutton extends ViewGroup {
       borderView.layout(0, 0, borderView.getMeasuredWidth(), borderView.getMeasuredHeight());
    }
 
+   @Override
+   public boolean onInterceptTouchEvent(MotionEvent ev) {
+      boolean shouldIntercept = mDragHelper.shouldInterceptTouchEvent(ev);
+      boolean moveFlag = moveDetector.onTouchEvent(ev);
+      int action = ev.getActionMasked();
+      if (action == MotionEvent.ACTION_DOWN) {
+         // ACTION_DOWN的时候就对view重新排序
+         if (mDragHelper.getViewDragState() == ViewDragHelper.STATE_SETTLING) {
+            mDragHelper.abort();
+         }
+
+         // 保存初次按下时arrowFlagView的Y坐标
+         // action_down时就让mDragHelper开始工作，否则有时候导致异常
+         mDragHelper.processTouchEvent(ev);
+      }
+
+      return shouldIntercept && moveFlag;
+   }
+
+   @Override
+   public boolean dispatchTouchEvent(MotionEvent ev) {
+      if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
+         this.downPoint.x = (int) ev.getX();
+         this.downPoint.y = (int) ev.getY();
+      }
+      return super.dispatchTouchEvent(ev);
+   }
+
+   @Override
+   public boolean onTouchEvent(MotionEvent event) {
+      try {
+         // 统一交给mDragHelper处理，由DragHelperCallback实现拖动效果
+         // 该行代码可能会抛异常，正式发布时请将这行代码加上try catch
+         mDragHelper.processTouchEvent(event);
+      } catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      return true;
+   }
+
    private class DragHelperCallback extends ViewDragHelper.Callback {
 
       @Override
-      public boolean tryCaptureView(@NonNull View child, int pointerId) {
-         return false;
+      public void onViewPositionChanged(View changedView, int left, int top,
+                                        int dx, int dy) {
+//         onViewPosChanged((CardItemView) changedView);
+      }
+
+      @Override
+      public boolean tryCaptureView(View child, int pointerId) {
+
+//         if (child.getVisibility() != View.VISIBLE || child.getScaleX() <= 1.0f - SCALE_STEP) {
+            // 一般来讲，如果拖动的是第三层、或者第四层的View，则直接禁止
+            // 此处用getScale的用法来巧妙回避
+//            return false;
+//         }
+
+//         if (btnLock) {
+//            return false;
+//         }
+
+         // 1. 只有顶部的View才允许滑动
+//         int childIndex = viewList.indexOf(child);
+//         if (childIndex > 0) {
+//            return false;
+//         }
+
+         // 2. 获取可滑动区域
+//         ((CardItemView) child).onStartDragging();
+//         if (draggableArea == null) {
+//            draggableArea = adapter.obtainDraggableArea(child);
+//         }
+
+
+         // 3. 判断是否可滑动
+         boolean shouldCapture = true;
+//         if (null != draggableArea) {
+//            shouldCapture = draggableArea.contains(downPoint.x, downPoint.y);
+//         }
+
+         // 4. 如果确定要滑动，就让touch事件交给自己消费
+         if (shouldCapture) {
+            getParent().requestDisallowInterceptTouchEvent(shouldCapture);
+         }
+         return shouldCapture;
+      }
+
+      @Override
+      public int getViewHorizontalDragRange(View child) {
+         // 这个用来控制拖拽过程中松手后，自动滑行的速度
+         return 256;
+      }
+
+      @Override
+      public void onViewReleased(View releasedChild, float xvel, float yvel) {
+//         animToSide((CardItemView) releasedChild, (int) xvel, (int) yvel);
+      }
+
+      @Override
+      public int clampViewPositionHorizontal(View child, int left, int dx) {
+         return left;
+      }
+
+      @Override
+      public int clampViewPositionVertical(View child, int top, int dy) {
+         return top;
       }
    }
+
+   class MoveDetector extends GestureDetector.SimpleOnGestureListener {
+
+      @Override
+      public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx,
+                              float dy) {
+         Log.e("wodeshijie", "onScroll()");
+         // 拖动了，touch不往下传递
+         return Math.abs(dy) + Math.abs(dx) > mTouchSlop;
+      }
+   }
+
 
    /**
     * ========================================================================================
@@ -172,6 +300,5 @@ public class smartisanswitchbutton extends ViewGroup {
          mBasePath.close();
          canvas.drawPath(mBasePath, mBaseStrokePaint);
       }
-
    }
 }
