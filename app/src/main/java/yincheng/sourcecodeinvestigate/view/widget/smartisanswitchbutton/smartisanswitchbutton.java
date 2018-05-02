@@ -48,7 +48,7 @@ public class smartisanswitchbutton extends ViewGroup {
       addView(borderView);
       addView(innerView);
       // TODO: 2018/4/29 参数意义
-      mDragHelper = ViewDragHelper.create(this, 10f, new DragHelperCallback());
+      git = ViewDragHelper.create(this, 10f, new DragHelperCallback());
       ViewConfiguration configuration = ViewConfiguration.get(getContext());
       mTouchSlop = configuration.getScaledTouchSlop();
       moveDetector = new GestureDetectorCompat(context,
