@@ -3,6 +3,7 @@ package yincheng.sourcecodeinvestigate.view.widget.smartisanswitchbutton;
 import android.content.Context;
 import android.graphics.BlurMaskFilter;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
@@ -31,6 +32,7 @@ public class smartisanswitchbutton extends ViewGroup {
    private GestureDetectorCompat moveDetector;
    private int mTouchSlop = 5;
    private Point downPoint = new Point();
+   private Paint leftCirclePaint, rightCirclePaint;
 
 
    public smartisanswitchbutton(Context context) {
@@ -48,14 +50,13 @@ public class smartisanswitchbutton extends ViewGroup {
       addView(borderView);
       addView(innerView);
       // TODO: 2018/4/29 参数意义
-      git = ViewDragHelper.create(this, 10f, new DragHelperCallback());
+      mDragHelper = ViewDragHelper.create(this, 10f, new DragHelperCallback());
       ViewConfiguration configuration = ViewConfiguration.get(getContext());
       mTouchSlop = configuration.getScaledTouchSlop();
       moveDetector = new GestureDetectorCompat(context,
             new MoveDetector());
       moveDetector.setIsLongpressEnabled(false);
    }
-
 
    @Override
    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -126,8 +127,8 @@ public class smartisanswitchbutton extends ViewGroup {
       public boolean tryCaptureView(View child, int pointerId) {
 
 //         if (child.getVisibility() != View.VISIBLE || child.getScaleX() <= 1.0f - SCALE_STEP) {
-            // 一般来讲，如果拖动的是第三层、或者第四层的View，则直接禁止
-            // 此处用getScale的用法来巧妙回避
+         // 一般来讲，如果拖动的是第三层、或者第四层的View，则直接禁止
+         // 此处用getScale的用法来巧妙回避
 //            return false;
 //         }
 
@@ -179,7 +180,7 @@ public class smartisanswitchbutton extends ViewGroup {
 
       @Override
       public int clampViewPositionVertical(View child, int top, int dy) {
-         return top;
+         return 0;
       }
    }
 
@@ -216,6 +217,14 @@ public class smartisanswitchbutton extends ViewGroup {
 
       public void initBase() {
          mBaseFillPaint.setColor(getResources().getColor(R.color.gray));
+         // TODO: 2018/5/2 之所以在这里重新newpaint出来而不是使用basefillpaint，是因为如果没有在界面退出以后进行状态的保存会造成画笔颜色冲突，待改进(只用一个style为fill的画笔)
+         leftCirclePaint = new Paint();
+         leftCirclePaint.setAntiAlias(true);
+         leftCirclePaint.setStyle(Paint.Style.FILL);
+
+         rightCirclePaint = new Paint();
+         rightCirclePaint.setAntiAlias(true);
+         rightCirclePaint.setStyle(Paint.Style.FILL);
       }
 
       @Override
@@ -245,8 +254,8 @@ public class smartisanswitchbutton extends ViewGroup {
       }
 
       private void drawCircle(Canvas canvas) {
-         mBaseFillPaint.setColor(getResources().getColor(R.color.lightergray));
-         canvas.drawCircle(getMeasuredHeight() / 2, getMeasuredHeight() / 2, circleRadius, mBaseFillPaint);
+         leftCirclePaint.setColor(getResources().getColor(R.color.lightergray));
+         canvas.drawCircle(getMeasuredHeight() / 2, getMeasuredHeight() / 2, circleRadius, leftCirclePaint);
       }
    }
 
