@@ -1,6 +1,7 @@
 package yincheng.sourcecodeinvestigate.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -61,18 +62,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-//        if (v instanceof TextView) {
-//            try {
-//                startActivity(new Intent(this, Class.forName("yincheng.sourcecodeinvestigate.ui.activity." + ((TextView) v).getText().toString() + "Activity")));
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (v instanceof TextView) {
+            try {
+                startActivity(new Intent(this, Class.forName("yincheng.sourcecodeinvestigate.ui.activity." + ((TextView) v).getText().toString() + "Activity")));
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.e("wodeshijie", "onItemClick()");
         Class<? extends View> clazz = itemHolders.get(position).viewClass;
         View constructedView = null;
         try {
