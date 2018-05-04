@@ -38,14 +38,12 @@ public class LruCacheActivity extends AppCompatActivity {
     private ImageView imageView;
     private DiskLruCache mDiskLruCache = null;
     private File imageCacheDir;
-    private TextView tv_save, tv_load;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lrucache);
         imageView = findViewById(R.id.iv_cache);
-        tv_save = findViewById(R.id.tv_save);
         try {
             imageCacheDir = getDiskCacheDir(this, "image");
             if (!imageCacheDir.exists()) {
@@ -57,18 +55,22 @@ public class LruCacheActivity extends AppCompatActivity {
         }
 
 
-
-        tv_save.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.tv_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveImageToCache();
             }
         });
-        tv_load = findViewById(R.id.tv_load);
-        tv_load.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.tv_load).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadImageFromCache();
+            }
+        });
+        findViewById(R.id.tv_remove).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeImageFromCache();
             }
         });
 
@@ -188,6 +190,16 @@ public class LruCacheActivity extends AppCompatActivity {
                 Bitmap bitmap = BitmapFactory.decodeStream(is);
                 imageView.setImageBitmap(bitmap);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeImageFromCache() {
+        try {
+            String imageUrl = "https://wallpapersite.com/images/pages/pic_h/13426.jpg";
+            String key = hashKeyForDisk(imageUrl);
+            mDiskLruCache.remove(key);
         } catch (IOException e) {
             e.printStackTrace();
         }

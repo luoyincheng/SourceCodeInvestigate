@@ -36,5 +36,15 @@
             android:text="load"
             android:textColor="@android:color/black"
             android:textSize="29dp" />
+
+        <TextView
+            android:id="@+id/tv_remove"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="remove"
+            android:textColor="@android:color/black"
+            android:textSize="29dp" />
     </LinearLayout>
 </RelativeLayout>
