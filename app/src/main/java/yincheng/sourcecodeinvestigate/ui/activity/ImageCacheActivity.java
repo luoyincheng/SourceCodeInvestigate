@@ -6,7 +6,7 @@ import android.view.ViewTreeObserver;
 import android.widget.GridView;
 
 import yincheng.sourcecodeinvestigate.R;
-import yincheng.sourcecodeinvestigate.disklrucache.PhotoWallAdapter;
+import yincheng.sourcecodeinvestigate.disklrucache.WallpaperAdapter;
 
 /**
  * Created by yincheng on 2018/5/7/15:39.
@@ -14,8 +14,7 @@ import yincheng.sourcecodeinvestigate.disklrucache.PhotoWallAdapter;
  */
 public class ImageCacheActivity extends AppCompatActivity {
     private GridView mPhotoWall;
-
-    private PhotoWallAdapter mAdapter;
+    private WallpaperAdapter mAdapter;
 
     private int mImageThumbSize;
     private int mImageThumbSpacing;
@@ -29,7 +28,7 @@ public class ImageCacheActivity extends AppCompatActivity {
         mImageThumbSpacing = getResources().getDimensionPixelSize(
                 android.R.dimen.thumbnail_width);
         mPhotoWall = (GridView) findViewById(R.id.photo_wall);
-        mAdapter = new PhotoWallAdapter(this, 0, imageThumbUrls,
+        mAdapter = new WallpaperAdapter(this, 0, imageThumbUrls,
                 mPhotoWall);
         mPhotoWall.setAdapter(mAdapter);
         mPhotoWall.getViewTreeObserver().addOnGlobalLayoutListener(

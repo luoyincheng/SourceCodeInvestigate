@@ -35,7 +35,7 @@ import yincheng.sourcecodeinvestigate.R;
  * Created by yincheng on 2018/5/7/15:33.
  * github:luoyincheng
  */
-public class PhotoWallAdapter extends ArrayAdapter<String> {
+public class WallpaperAdapter extends ArrayAdapter<String> {
 
     private Set<BitmapWorkerTask> taskCollection;
     private MemoryLruCache<String, Bitmap> mMemoryCache;
@@ -43,7 +43,7 @@ public class PhotoWallAdapter extends ArrayAdapter<String> {
     private GridView mPhotoWall;
     private int mItemHeight = 0;
 
-    public PhotoWallAdapter(Context context, int textViewResourceId, String[] objects,
+    public WallpaperAdapter(Context context, int textViewResourceId, String[] objects,
                             GridView photoWall) {
         super(context, textViewResourceId, objects);
         mPhotoWall = photoWall;

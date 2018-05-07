@@ -122,7 +122,7 @@ public class MemoryLruCache<K, V> {
         synchronized (this) {
             putCount++;
             size += safeSizeOf(key, value);
-            previous = map.put(key, value);
+            previous = map.put(key, value);//存入的同时获取之前的旧值
             if (previous != null) {
                 size -= safeSizeOf(key, previous);
             }
@@ -153,12 +153,16 @@ public class MemoryLruCache<K, V> {
                             + ".sizeOf() is reporting inconsistent results!");
                 }
 
-                // TODO: 2018/4/12 “||” 和 “|” 的区别 
                 if (size <= maxSize || map.isEmpty()) {
                     break;
                 }
 
-                // TODO: 2018/4/12  这里怎么判断是最近最少使用的Entry呢？？？？？？？？？？？？
+                /**
+                 * LinkedHashMap = 散列表 + 循环双向链表
+                 * 循环双向链表的头部存放的是最久访问的节点或最先插入的节点，尾部为最近访问的或最近插入的节点，
+                 * 迭代器遍历方向是从链表的头部开始到链表尾部结束，在链表尾部有一个空的header节点，
+                 * 该节点不存放key-value内容，为LinkedHashMap类的成员属性，循环双向链表的入口；
+                 */
                 Map.Entry<K, V> toEvict = map.entrySet().iterator().next();
                 key = toEvict.getKey();
                 value = toEvict.getValue();
@@ -248,7 +252,7 @@ public class MemoryLruCache<K, V> {
      * <p>
      * <p>An entry's size must not change while it is in the cache.
      */
-    protected int sizeOf(K key, V value) {
+    protected int sizeOf(K key, V value) {//
         return 1;
     }
 
@@ -319,7 +323,7 @@ public class MemoryLruCache<K, V> {
      * recently accessed to most recently accessed.
      */
     public synchronized final Map<K, V> snapshot() {
-        return new LinkedHashMap<K, V>(map);
+        return new LinkedHashMap<>(map);
     }
 
     @Override
