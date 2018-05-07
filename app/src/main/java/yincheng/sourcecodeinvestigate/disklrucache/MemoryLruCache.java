@@ -1,4 +1,4 @@
-package yincheng.sourcecodeinvestigate;
+package yincheng.sourcecodeinvestigate.disklrucache;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by HHX on 2018/4/12.
  */
 
-public class LruCache<K, V> {
+public class MemoryLruCache<K, V> {
     private final LinkedHashMap<K, V> map;
 
     /**
@@ -33,17 +33,14 @@ public class LruCache<K, V> {
      *                冲突的机会越大,则查找的成本越高。反之,查找的成本越小。
      *                因此,必须在 "冲突的机会"与"空间利用率"之间寻找一种平衡与折衷。
      */
-    public LruCache(int maxSize) {
+    public MemoryLruCache(int maxSize) {
         if (maxSize <= 0) {
             throw new IllegalArgumentException("maxSize <= 0");
         }
         this.maxSize = maxSize;
-        this.map = new LinkedHashMap<K, V>(0, 0.75f, true);
+        this.map = new LinkedHashMap<>(0, 0.75f, true);
     }
 
-    /**
-     * 重新设置LinkedHashMap的entry容量
-     */
     public void resize(int maxSize) {
         if (maxSize <= 0) {
             throw new IllegalArgumentException("maxSize <= 0");
@@ -144,7 +141,7 @@ public class LruCache<K, V> {
      * below the requested size.
      *
      * @param maxSize the maximum size of the cache before returning. May be -1
-     *                to evict even 0-sized elements.
+     *                to evict() even 0-sized elements.
      */
     public void trimToSize(int maxSize) {
         while (true) {
@@ -329,7 +326,7 @@ public class LruCache<K, V> {
     public synchronized final String toString() {
         int accesses = hitCount + missCount;
         int hitPercent = accesses != 0 ? (100 * hitCount / accesses) : 0;
-        return String.format(Locale.US, "LruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]",
+        return String.format(Locale.US, "MemoryLruCache[maxSize=%d,hits=%d,misses=%d,hitRate=%d%%]",
                 maxSize, hitCount, missCount, hitPercent);
     }
 }

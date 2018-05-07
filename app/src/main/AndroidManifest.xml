@@ -23,6 +23,7 @@
         <activity android:name=".regex.RegexActivity" />
         <activity android:name=".ui.activity.LruCacheActivity" />
         <activity android:name=".ui.activity.Rxjava2Activity" />
+        <activity android:name=".ui.activity.ImageCacheActivity" />
     </application>
 
 </manifest>

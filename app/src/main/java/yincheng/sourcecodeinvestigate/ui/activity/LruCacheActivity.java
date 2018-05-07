@@ -29,6 +29,7 @@ import java.security.NoSuchAlgorithmException;
 
 import yincheng.sourcecodeinvestigate.R;
 import yincheng.sourcecodeinvestigate.disklrucache.DiskLruCache;
+import yincheng.sourcecodeinvestigate.disklrucache.MemoryLruCache;
 
 /**
  * Created by yincheng on 2018/4/25/18:29.
@@ -37,6 +38,7 @@ import yincheng.sourcecodeinvestigate.disklrucache.DiskLruCache;
 public class LruCacheActivity extends AppCompatActivity {
     private ImageView imageView;
     private DiskLruCache mDiskLruCache = null;
+    private MemoryLruCache<String,Bitmap> mMemoryLruCache;
     private File imageCacheDir;
 
     @Override

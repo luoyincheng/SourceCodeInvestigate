@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         TextView tv_lrucache = findViewById(R.id.tv_lrucache);
         tv_lrucache.setOnClickListener(this);
+        TextView tv_cache = findViewById(R.id.tv_cache);
+        tv_cache.setOnClickListener(this);
         TextView tv_timer = findViewById(R.id.tv_timer);
         tv_timer.setOnClickListener(this);
         TextView tv_rxjava = findViewById(R.id.tv_rxjava);
