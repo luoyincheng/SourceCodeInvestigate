@@ -31,7 +31,7 @@ public class ViewDragHelper {
    /**
     * A view is not currently being dragged or animating as a result of a fling/snap.
     */
-   public static final int STATE_IDLE = 0;
+   public static final int STATE_IDLE = 0;//闲置的
 
    /**
     * A view is currently being dragged. The position is currently changing as a result
@@ -40,10 +40,10 @@ public class ViewDragHelper {
    public static final int STATE_DRAGGING = 1;
 
    /**
-    * A view is currently settling into place as a result of a fling or
+    * A view is currently settling into place as a result of a fling(抛，掷，猛冲) or
     * predefined non-interactive motion.
     */
-   public static final int STATE_SETTLING = 2;
+   public static final int STATE_SETTLING = 2;//安置，固定
 
    /**
     * Edge flag indicating that the left edge should be affected.
@@ -76,7 +76,7 @@ public class ViewDragHelper {
    public static final int DIRECTION_HORIZONTAL = 1 << 0;
 
    /**
-    * Indicates that a check should occur along the vertical axis
+    * Indicates that a check should occur along the vertical axis(轴)
     */
    public static final int DIRECTION_VERTICAL = 1 << 1;
 

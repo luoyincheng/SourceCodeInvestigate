@@ -24,6 +24,7 @@
         <activity android:name=".ui.activity.LruCacheActivity" />
         <activity android:name=".ui.activity.Rxjava2Activity" />
         <activity android:name=".ui.activity.ImageCacheActivity" />
+        <activity android:name=".ui.activity.AnimationActivity" />
     </application>
 
 </manifest>

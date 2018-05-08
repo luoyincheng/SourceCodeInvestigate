@@ -44,16 +44,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView tv_lrucache = findViewById(R.id.tv_lrucache);
-        tv_lrucache.setOnClickListener(this);
-        TextView tv_cache = findViewById(R.id.tv_cache);
-        tv_cache.setOnClickListener(this);
-        TextView tv_timer = findViewById(R.id.tv_timer);
-        tv_timer.setOnClickListener(this);
-        TextView tv_rxjava = findViewById(R.id.tv_rxjava);
-        tv_rxjava.setOnClickListener(this);
-        TextView tv_threadpool = findViewById(R.id.tv_threadpool);
-        tv_threadpool.setOnClickListener(this);
+        findViewById(R.id.tv_lrucache).setOnClickListener(this);
+        findViewById(R.id.tv_cache).setOnClickListener(this);
+        findViewById(R.id.tv_timer).setOnClickListener(this);
+        findViewById(R.id.tv_rxjava).setOnClickListener(this);
+        findViewById(R.id.tv_threadpool).setOnClickListener(this);
+        findViewById(R.id.tv_animation).setOnClickListener(this);
         fl_maincontainer = findViewById(R.id.fl_maincontainer);
         mainAdapter = new mainAdapter();
         lv_main = findViewById(R.id.lv_main);

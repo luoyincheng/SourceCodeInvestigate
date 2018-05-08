@@ -8,7 +8,13 @@ import java.util.Set;
  * github:luoyincheng
  */
 public class HashMap<K, V> extends AbstractMap<K, V> {
-    java.util.HashMap hashMap = new java.util.HashMap();
+
+    {
+        java.util.HashMap hashMap = new java.util.HashMap();
+        hashMap.put("a", "a");
+        hashMap.get("a");
+
+    }
 
     /**
      * ## HashMap中的链表中的Node是Map(Node<K,V> implements Map.Entry<K,V>)
@@ -55,6 +61,7 @@ public class HashMap<K, V> extends AbstractMap<K, V> {
         return h ^ (h >>> 7) ^ (h >>> 4);
     }
 
+    //https://blog.csdn.net/u010687392/article/details/47809295
     static int indexFor(int h, int length) {
         return h & (length - 1);
     }
