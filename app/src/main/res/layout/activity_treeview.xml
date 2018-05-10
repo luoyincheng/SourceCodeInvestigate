@@ -12,7 +12,7 @@
         android:id="@+id/tree"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lineColor="@android:color/holo_blue_dark" />
+        app:lineColor="@android:color/black" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addNode"

@@ -6,6 +6,7 @@ import android.database.DataSetObserver;
 import android.graphics.Point;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
 
 public abstract class BaseTreeAdapter<VH> implements TreeAdapter<VH> {
     private final int mLayoutRes;
@@ -25,6 +23,7 @@ public abstract class BaseTreeAdapter<VH> implements TreeAdapter<VH> {
 
     private LayoutInflater mLayoutInflater;
 
+    //添加Observable用来维护消息的通知
     private DataSetObservable mDataSetObservable = new DataSetObservable();
 
     public BaseTreeAdapter(@NonNull Context context, @LayoutRes int layoutRes) {
@@ -109,6 +108,7 @@ public abstract class BaseTreeAdapter<VH> implements TreeAdapter<VH> {
 
     @Override
     public void notifyNodeAdded(TreeNode node, TreeNode parent) {
+        Log.e("wodeshijie","BaseTreeAdapter__notifyNodeAdded()"+"添加了新的Node");
         mDataSetObservable.notifyInvalidated();
     }
 

@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lv_main.setOnItemClickListener(this);
     }
 
-
     @Override
     public void onClick(View v) {
         if (v instanceof TextView) {

@@ -15,9 +15,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.Px;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import yincheng.sourcecodeinvestigate.R;
@@ -25,7 +27,7 @@ import yincheng.sourcecodeinvestigate.R;
 public class TreeView extends AdapterView<TreeAdapter> implements GestureDetector.OnGestureListener {
 
     private static final int DEFAULT_LINE_LENGTH = 100;
-    private static final int DEFAULT_LINE_THICKNESS = 5;
+    private static final int DEFAULT_LINE_THICKNESS = 10;
     private static final int DEFAULT_LINE_COLOR = Color.BLACK;
     public static final boolean DEFAULT_USE_MAX_SIZE = false;
     private static final int INVALID_INDEX = -1;
@@ -89,16 +91,6 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
         initPaint();
     }
 
-    private void initPaint() {
-        mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mLinePaint.setStrokeWidth(mLineThickness);
-        mLinePaint.setColor(mLineColor);
-        mLinePaint.setStyle(Paint.Style.STROKE);
-        mLinePaint.setStrokeJoin(Paint.Join.ROUND);    // set the join to round you want
-//        mLinePaint.setStrokeCap(Paint.Cap.ROUND);      // set the paint cap to round too
-        mLinePaint.setPathEffect(new CornerPathEffect(10));   // set the path effect when they join.
-    }
-
     private void positionItems() {
         int maxLeft = Integer.MAX_VALUE;
         int maxRight = Integer.MIN_VALUE;
@@ -149,19 +141,18 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
     }
 
     /**
-     * Returns the index of the child that contains the coordinates given.
-     *
-     * @param x X-coordinate
-     * @param y Y-coordinate
-     * @return The index of the child that contains the coordinates. If no child
-     * is found then it returns INVALID_INDEX
+     * 返回包含该坐标(x,y)的Child下标
      */
     private int getContainingChildIndex(final int x, final int y) {
         if (mRect == null) {
             mRect = new Rect();
         }
         for (int index = 0; index < getChildCount(); index++) {
+            /**
+             * 获取该Child的可点击的方形区域
+             */
             getChildAt(index).getHitRect(mRect);
+            Log.e("wodeshijie", getPivotX() + "");
             if (mRect.contains(x, y)) {
                 return index;
             }
@@ -171,7 +162,6 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
 
     private void clickChildAt(final int x, final int y) {
         final int index = getContainingChildIndex(x, y);
-        // no child found at this position
         if (index == INVALID_INDEX) {
             return;
         }
@@ -205,9 +195,7 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
     }
 
     private void longClickChildAt(final int x, final int y) {
-
         final int index = getContainingChildIndex(x, y);
-        // no child found at this position
         if (index == INVALID_INDEX) {
             return;
         }
@@ -246,44 +234,6 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
 
             canvas.drawPath(mLinePath, mLinePaint);
         }
-    }
-
-    /**
-     * @return Returns the value of how thick the lines between the nodes are.
-     */
-    public int getLineThickness() {
-        return mLineThickness;
-    }
-
-    /**
-     * Sets a new value for the thickness of the lines between the nodes.
-     *
-     * @param lineThickness new value for the thickness
-     */
-    public void setLineThickness(int lineThickness) {
-        mLineThickness = lineThickness;
-        initPaint();
-        invalidate();
-    }
-
-    /**
-     * @return Returns the color of the lines between the nodes.
-     */
-    @ColorInt
-    public int getLineColor() {
-        return mLineColor;
-    }
-
-    /**
-     * Sets a new color for the lines between the nodes.A change to this value
-     * invokes a re-drawing of the tree.
-     *
-     * @param lineColor the new color
-     */
-    public void setLineColor(@ColorInt int lineColor) {
-        mLineColor = lineColor;
-        initPaint();
-        invalidate();
     }
 
     /**
@@ -359,41 +309,27 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
     }
 
     @Override
-    public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
-        return true;
-    }
-
-    @Override
-    public TreeAdapter getAdapter() {
-        return mAdapter;
-    }
-
-    @Override
     public void setAdapter(TreeAdapter adapter) {
-        if (mAdapter != null && mDataSetObserver != null) {
+        //“&&”的特点：如果mAdapter为空，就不会再判断mDataSetObserver是否为空了
+        if (mAdapter != null && mDataSetObserver != null)
             mAdapter.unregisterDataSetObserver(mDataSetObserver);
-        }
-
         mAdapter = adapter;
         mDataSetObserver = new TreeDataSetObserver();
         mAdapter.registerDataSetObserver(mDataSetObserver);
-
+        /**
+         * Call this when something has changed which has invalidated the
+         * layout of this view. This will schedule a layout pass of the view
+         * tree. This should not be called while the view hierarchy is currently in a layout
+         * pass ({@link #isInLayout()}. If layout is happening, the request may be honored at the
+         * end of the current layout pass (and then layout will run again) or after the current
+         * frame is drawn and the next layout occurs.
+         *
+         * <p>Subclasses which override this method should call the superclass method to
+         * handle possible request-during-layout errors correctly.</p>
+         * <p>如果要重写该方法,必须要先调用super.requestLayout()方法(该方法使用了@CallSuper注解),因为
+         * super.requestLayout()方法能很好地处理“布局时”会出现的各种问题。</p>
+         */
         requestLayout();
-    }
-
-    @Override
-    protected void onLayout(final boolean changed, final int left, final int top, final int right,
-                            final int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (mAdapter == null) {
-            return;
-        }
-
-        removeAllViewsInLayout();
-        positionItems();
-
-        invalidate();
     }
 
     @Override
@@ -412,7 +348,6 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
-
         TreeNode rootNode = mAdapter.getNode(0);
         if (rootNode != null) {
             drawLines(canvas, rootNode);
@@ -432,11 +367,9 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         if (mAdapter == null) {
             return;
         }
-
         int maxWidth = 0;
         int maxHeight = 0;
         int minHeight = Integer.MAX_VALUE;
@@ -448,9 +381,42 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
             if (params == null) {
                 params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
             }
+            /**
+             * Adds a view during layout. This is useful if in your onLayout() method,
+             * you need to add more views (as does the list view for example).
+             *
+             * If index is negative, it means put it at the end of the list.
+             *
+             * @param child the view to add to the group
+             * @param index the index at which the child must be added or -1 to add last
+             * @param params the layout parameters to associate with the child
+             * @param preventRequestLayout if true, calling this method will not trigger a
+             *        layout request on child
+             * @return true if the child was added, false otherwise
+             */
             addViewInLayout(child, -1, params, true);
+            /**
+             * <p>
+             * This is called to find out how big a view should be. The parent
+             * supplies constraint information in the width and height parameters.
+             * </p>
+             *
+             * <p>
+             * The actual measurement work of a view is performed in
+             * {@link #onMeasure(int, int)}, called by this method. Therefore, only
+             * {@link #onMeasure(int, int)} can and must be overridden by subclasses.
+             * </p>
+             *
+             * @param widthMeasureSpec Horizontal space requirements as imposed by the
+             *        parent,父布局强加给ChildView的在水平方向上的要求
+             * @param heightMeasureSpec Vertical space requirements as imposed by the
+             *        parent,父布局强加给ChildView的在垂直方向上的要求
+             *
+             * @see #onMeasure(int, int)
+             */
+            //measure方法实际上还是调用的onMeasure()方法，这里有点模糊
+            // TODO: 2018/5/10 父类对子类的布局约束到底如何起作用
             child.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-
             TreeNode node = mAdapter.getNode(i);
             final int measuredWidth = child.getMeasuredWidth();
             final int measuredHeight = child.getMeasuredHeight();
@@ -488,18 +454,18 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
         mAdapter.notifySizeChanged();
     }
 
+
     private class TreeDataSetObserver extends DataSetObserver {
+
         @Override
         public void onChanged() {
             super.onChanged();
-
             refresh();
         }
 
         @Override
         public void onInvalidated() {
             super.onInvalidated();
-
             refresh();
         }
 
@@ -507,5 +473,76 @@ public class TreeView extends AdapterView<TreeAdapter> implements GestureDetecto
             invalidate();
             requestLayout();
         }
+
+
+    }
+
+    /*********************************************************************************************/
+    public void setLineThickness(int lineThickness) {
+        mLineThickness = lineThickness;
+        initPaint();
+        invalidate();
+    }
+
+    public int getLineThickness() {
+        return mLineThickness;
+    }
+
+    @ColorInt
+    public int getLineColor() {
+        return mLineColor;
+    }
+
+    public void setLineColor(@ColorInt int lineColor) {
+        mLineColor = lineColor;
+        initPaint();
+        invalidate();//重绘整个View
+    }
+
+    private void initPaint() {
+        mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mLinePaint.setStrokeWidth(mLineThickness);
+        mLinePaint.setColor(mLineColor);
+        mLinePaint.setStyle(Paint.Style.STROKE);
+        mLinePaint.setStrokeJoin(Paint.Join.ROUND);    // set the join to round you want
+//        mLinePaint.setStrokeCap(Paint.Cap.ROUND);      // set the paint cap to round too
+        mLinePaint.setPathEffect(new CornerPathEffect(10));   // set the path effect when they join.
+    }
+
+    @Override
+    protected void onLayout(final boolean changed, final int left, final int top, final int right,
+                            final int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (mAdapter == null) {
+            return;
+        }
+        //Layout之前先移除之前存在的所有childView
+        removeAllViewsInLayout();
+        positionItems();
+        invalidate();
+    }
+
+    @Override
+    public TreeAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    /**
+     * ##快速滑过
+     * Notified of a fling event when it occurs with the initial on down {@link MotionEvent}
+     * and the matching up {@link MotionEvent}. The calculated velocity is supplied along
+     * the x and y axis in pixels per second.
+     *
+     * @param event1    The first down motion event that started the fling.
+     * @param event2    The move motion event that triggered the current onFling.
+     * @param velocityX The velocity of this fling measured in pixels per second
+     *                  along the x axis.
+     * @param velocityY The velocity of this fling measured in pixels per second
+     *                  along the y axis.
+     * @return true if the event is consumed, else false
+     */
+    @Override
+    public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
+        return true;
     }
 }

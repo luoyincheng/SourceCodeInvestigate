@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import yincheng.sourcecodeinvestigate.androidinterviewpoint.treeview.BaseTreeAdapter;
 import yincheng.sourcecodeinvestigate.androidinterviewpoint.treeview.TreeNode;
@@ -52,8 +53,10 @@ public class TreeViewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mCurrentNode != null) {
                     mCurrentNode.addChild(new TreeNode(getNodeText()));
+                    Toast.makeText(TreeViewActivity.this, "添加Node", Toast.LENGTH_SHORT).show();
                 } else {
                     adapter.setRootNode(new TreeNode(getNodeText()));
+                    Toast.makeText(TreeViewActivity.this, "设置RootNode", Toast.LENGTH_SHORT).show();
                 }
             }
         });
