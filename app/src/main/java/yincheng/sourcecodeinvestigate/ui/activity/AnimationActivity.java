@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationSet;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import yincheng.sourcecodeinvestigate.R;
 

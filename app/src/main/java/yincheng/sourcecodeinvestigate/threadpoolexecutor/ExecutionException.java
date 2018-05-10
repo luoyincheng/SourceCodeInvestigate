@@ -1,4 +1,4 @@
-package yincheng.sourcecodeinvestigate.ThreadPoolExecutor;
+package yincheng.sourcecodeinvestigate.threadpoolexecutor;
 
 /**
  * Created by yincheng on 2018/4/23/10:06.

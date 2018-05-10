@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context=".ui.activity.TreeViewActivity">
+
+
+    <yincheng.sourcecodeinvestigate.androidinterviewpoint.treeview.TreeView
+        android:id="@+id/tree"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:lineColor="@android:color/holo_blue_dark" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_add_circle_red_400_24dp" />
+</android.support.design.widget.CoordinatorLayout>

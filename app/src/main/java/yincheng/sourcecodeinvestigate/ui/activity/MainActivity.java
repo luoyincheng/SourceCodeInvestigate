@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -13,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_rxjava).setOnClickListener(this);
         findViewById(R.id.tv_threadpool).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
+        findViewById(R.id.tv_treeview).setOnClickListener(this);
         fl_maincontainer = findViewById(R.id.fl_maincontainer);
         mainAdapter = new mainAdapter();
         lv_main = findViewById(R.id.lv_main);

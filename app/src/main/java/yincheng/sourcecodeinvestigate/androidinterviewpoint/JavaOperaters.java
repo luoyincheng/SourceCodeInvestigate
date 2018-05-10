@@ -1,4 +1,4 @@
-package yincheng.sourcecodeinvestigate.AndroidInterviewPoint;
+package yincheng.sourcecodeinvestigate.androidinterviewpoint;
 
 /**
  * Created by yincheng on 2018/5/8/9:55.

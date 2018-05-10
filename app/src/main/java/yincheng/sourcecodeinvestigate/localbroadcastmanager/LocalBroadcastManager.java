@@ -5,5 +5,5 @@ package yincheng.sourcecodeinvestigate.localbroadcastmanager;
  * github:luoyincheng
  */
 public class LocalBroadcastManager {
-    android.support.v4.content.LocalBroadcastManager
+//    android.support.v4.content.LocalBroadcastManager
 }

@@ -25,6 +25,7 @@
         <activity android:name=".ui.activity.Rxjava2Activity" />
         <activity android:name=".ui.activity.ImageCacheActivity" />
         <activity android:name=".ui.activity.AnimationActivity" />
+        <activity android:name=".ui.activity.TreeViewActivity" />
     </application>
 
 </manifest>
