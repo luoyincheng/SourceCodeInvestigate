@@ -1,6 +1,462 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="simple"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="simple"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="zip"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="zip"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="disposable"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="disposable"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="take"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="take"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="timer"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="timer"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="interval"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="interval"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="singleobserver"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="singleobserver"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="map"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="mapNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="map-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="zipNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="zip-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="takeNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="take-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="flatmapNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="flatmap-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="flatmapwithzipNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="flatmapwithzip-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="flatmapandfilterNetworking"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:text="flatmapandfilter-networking"
+            android:textColor="@android:color/black"
+            android:textSize="21sp"
+            android:typeface="monospace" />
+    </LinearLayout>
+
+
+</ScrollView>
