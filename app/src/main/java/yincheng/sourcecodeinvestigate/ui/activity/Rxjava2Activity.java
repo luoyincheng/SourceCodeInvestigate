@@ -6,19 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 import yincheng.sourcecodeinvestigate.R;
 import yincheng.sourcecodeinvestigate.rx2androidnetworking.Rx2AndroidNetworking;
@@ -274,21 +273,30 @@ public class Rxjava2Activity extends AppCompatActivity {
     //*********************************************************************************************
     public void flatmapwithzipNetworking(View view) {
         getUserListObservable()
-                .flatMap(new Function<List<User>, ObservableSource<User>>() {
+                .flatMap(new Function<List<User>, ObservableSource<User>>() {//flatMap -> to return users one by one
                     @Override
                     public ObservableSource<User> apply(List<User> users) throws Exception {
-                        return Observable.fromIterable(users);
+                        return Observable.fromIterable(users);//return user one by one from users
                     }
                 })
                 .flatMap(new Function<User, ObservableSource<Pair<UserDetail, User>>>() {
                     @Override
                     public ObservableSource<Pair<UserDetail, User>> apply(User user) throws Exception {
+                       /**
+                        * here we get the user one by one and then we are zipping two observable
+                        * (one getUserDetailObservable(networkcall to get userdetail)
+                        * and another Observable.just(user) - just to emit user).
+                        */
                         return Observable.zip(getUserDetailObservable(user.id),
                                 Observable.just(user),
                                 new BiFunction<UserDetail, User, Pair<UserDetail, User>>() {
                                     @Override
                                     public Pair<UserDetail, User> apply(UserDetail userDetail, User user) throws Exception {
-                                        return new Pair<>(userDetail, user);
+                                        /**
+                                         * runs when network call compeletes
+                                         * we get here userdetail for the corresponding user
+                                         */
+                                        return new Pair<>(userDetail, user);//returning the pair(userdetail,user)
                                     }
                                 });
                     }
@@ -324,6 +332,40 @@ public class Rxjava2Activity extends AppCompatActivity {
                     }
                 });
     }
+    //*********************************************************************************************
+    public void flatmapandfilterNetworking(View view){
+        getAllMyFrendsObservable()
+              .flatMap(new Function<List<User>, ObservableSource<User>>() {
+                  @Override public ObservableSource<User> apply(List<User> users) throws Exception {
+                      return Observable.fromIterable(users);
+                  }
+              })
+              .filter(new Predicate<User>() {
+                  @Override public boolean test(User user) throws Exception {
+                      //filtering user who follows me.
+                      return user.isFollowing;
+                  }
+              })
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(new Observer<User>() {
+                  @Override public void onSubscribe(Disposable d) {
+                      Log.e(TAG,"flatmapandfilterNetworking:onSubscribe()" + d.toString());
+                  }
+
+                  @Override public void onNext(User user) {
+                      Log.e(TAG,"flatmapandfilterNetworking:onNext()" + user.toString());
+                  }
+
+                  @Override public void onError(Throwable e) {
+                      Log.e(TAG,"flatmapandfilterNetworking:onError()" + e.getMessage());
+                  }
+
+                  @Override public void onComplete() {
+                      Log.e(TAG,"flatmapandfilterNetworking:onComplete()" );
+                  }
+              });
+    }
 
     //**************************************common*************************************************
     //*********************************************************************************************
@@ -341,6 +383,14 @@ public class Rxjava2Activity extends AppCompatActivity {
                 .addPathParameter("userId", String.valueOf(id))
                 .build()
                 .getObjectObservable(UserDetail.class);
+    }
+
+    private Observable<List<User>> getAllMyFrendsObservable(){
+        return Rx2AndroidNetworking
+              .get("https://fierce-cove-29863.herokuapp.com/getAllFriends/{userId}")
+              .addPathParameter("userId","1")
+              .build()
+              .getObjectListObservable(User.class);
     }
 
 }

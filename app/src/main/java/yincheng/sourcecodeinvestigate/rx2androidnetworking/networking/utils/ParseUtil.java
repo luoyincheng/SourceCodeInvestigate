@@ -19,6 +19,7 @@
 
 package yincheng.sourcecodeinvestigate.rx2androidnetworking.networking.utils;
 
+
 import com.google.gson.Gson;
 
 import yincheng.sourcecodeinvestigate.rx2androidnetworking.networking.gsonparserfactory.GsonParserFactory;
