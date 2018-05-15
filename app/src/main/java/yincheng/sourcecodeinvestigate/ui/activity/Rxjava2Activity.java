@@ -85,7 +85,7 @@ public class Rxjava2Activity extends AppCompatActivity {
     public void mapNetworking(View view) {
         Rx2AndroidNetworking
                 .get("https://fierce-cove-29863.herokuapp.com/getAnUser/{userId}")
-                .addPathParameter("userId", "1")
+                .addPathParameter("userId", "1")//ANRquest.GetRequestBuilder
                 .build()
                 .getObjectObservable(ApiUser.class)
                 .subscribeOn(Schedulers.io())
@@ -142,7 +142,8 @@ public class Rxjava2Activity extends AppCompatActivity {
      * 获取喜欢football的用户列表，Observable要发送的数据：list<User>
      */
     private Observable<List<User>> getFootballFansObservable() {
-        return Rx2AndroidNetworking.get("https://fierce-cove-29863.herokuapp.com/getAllFootballFans")
+        return Rx2AndroidNetworking
+                .get("https://fierce-cove-29863.herokuapp.com/getAllFootballFans")
                 .build()
                 .getObjectListObservable(User.class);
     }
@@ -307,8 +308,8 @@ public class Rxjava2Activity extends AppCompatActivity {
 
                         UserDetail userDetail = userDetailUserPair.first;
                         User user = userDetailUserPair.second;
-                        Log.e(TAG,"user::" + user.toString());
-                        Log.e(TAG,"userDetail::" + userDetail.toString());
+                        Log.e(TAG, "user::" + user.toString());
+                        Log.e(TAG, "userDetail::" + userDetail.toString());
                     }
 
                     @Override
