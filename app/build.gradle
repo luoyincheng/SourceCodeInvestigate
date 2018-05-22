@@ -48,8 +48,24 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.android.support:support-annotations:27.1.1'
+<<<<<<< HEAD
     implementation 'com.kaopiz:kprogresshud:1.0.5'
     implementation 'com.jakewharton:butterknife:8.8.1'
 
 
+=======
+
+    //markdownview需要
+    implementation 'com.vladsch.flexmark:flexmark:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-tables:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-strikethrough:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-gfm-tasklist:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-autolink:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-abbreviation:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-superscript:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-footnotes:0.28.32'
+    implementation 'com.vladsch.flexmark:flexmark-ext-attributes:0.28.32'
+    //Logger
+    implementation 'com.orhanobut:logger:1.15'
+>>>>>>> d229f7c7d81927534db64dabf66195706250461f
 }

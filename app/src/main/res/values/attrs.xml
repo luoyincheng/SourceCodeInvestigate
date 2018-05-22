@@ -6,4 +6,8 @@
         <attr name="lineColor" format="color" />
         <attr name="useMaxSize" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="MarkdownView">
+        <attr name="escapeHtml" format="boolean" />
+    </declare-styleable>
 </resources>
