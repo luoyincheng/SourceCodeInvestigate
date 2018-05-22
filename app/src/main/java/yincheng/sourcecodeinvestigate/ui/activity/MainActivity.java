@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.tv_threadpool).setOnClickListener(this);
         findViewById(R.id.tv_animation).setOnClickListener(this);
         findViewById(R.id.tv_treeview).setOnClickListener(this);
+        findViewById(R.id.tv_mvvm).setOnClickListener(this);
         fl_maincontainer = findViewById(R.id.fl_maincontainer);
         mainAdapter = new mainAdapter();
         lv_main = findViewById(R.id.lv_main);

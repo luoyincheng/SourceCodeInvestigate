@@ -23,7 +23,8 @@ public class AnimationActivity extends AppCompatActivity {
     private AnimatorSet animatorSet;
 
     /**
-     * ofInt的作用：1.创建动画实例
+     * ofInt的作用：
+     * 1.创建动画实例
      * 2.将传入的多个Int参数进行平滑过渡，这里传入0和3，表示值将从0匀速增长到3
      * 如果传入了三个Int参数a,b,c,表示先从a平滑过渡到b，再从b平滑过渡到c
      * ValutAnimator内置了整型估值器
@@ -52,10 +53,7 @@ public class AnimationActivity extends AppCompatActivity {
                     tv_anim.requestLayout();
                 }
             });
-
         }
-
-
 
         findViewById(R.id.tv_start).setOnClickListener(new View.OnClickListener() {
             @Override

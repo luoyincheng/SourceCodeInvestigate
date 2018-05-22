@@ -95,6 +95,17 @@
             android:textColor="@android:color/white"
             android:textSize="21sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_mvvm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="MVVM"
+            android:textColor="@android:color/white"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <ListView
             android:id="@+id/lv_main"
