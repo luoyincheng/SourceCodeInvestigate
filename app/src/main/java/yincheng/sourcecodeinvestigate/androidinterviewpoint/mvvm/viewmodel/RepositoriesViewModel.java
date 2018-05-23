@@ -66,7 +66,7 @@ public class RepositoriesViewModel implements ViewModel {
    }
 
    public String getLanguage() {
-      return context.getString(R.string.text_language, repository.language);
+      return context.getString(R.string.text_language, repository.language);//格式化参数
    }
 
    public int getLanguageVisibility() {

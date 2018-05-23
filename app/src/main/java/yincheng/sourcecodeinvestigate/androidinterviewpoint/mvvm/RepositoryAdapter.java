@@ -56,7 +56,7 @@ public class RepositoryAdapter extends
    }
 
    public static class RepositoryViewHolder extends RecyclerView.ViewHolder {
-      final ItemRepoBinding binding;
+      final ItemRepoBinding binding;//生成的binding既包含了界面控件，也包含了数据设置
 
       public RepositoryViewHolder(ItemRepoBinding binding) {
          super(binding.cardView);
