@@ -29,6 +29,7 @@
         <activity android:name=".ui.activity.TreeViewActivity" />
         <activity android:name=".ui.activity.MVVMActivity" />
         <activity android:name=".androidinterviewpoint.mvvm.view.RepositoryActivity" />
+        <activity android:name=".ui.activity.HelloWorldActivity" />
     </application>
 
 </manifest>
